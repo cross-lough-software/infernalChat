@@ -32,7 +32,7 @@ function set_dev
 function check_ports
 {
     local netStOut="$( netstat -nl )"
-    
+
     if echo $netStOut | grep -Eq '(0.0.0.0:)((80)|(443))\b' --color ; then
         echo "Services already found running on either ports 80 or 443. These are required for nginx HTTP and HTTPS."
         exit 1
@@ -70,7 +70,7 @@ function create_dirs
 function copy_html
 {
     echo "Copying HTML into $htmlRoot."
-    cp -rfv ../www-static/ $htmlRoot  
+    cp -rfv ../www-static/* $htmlRoot
 }
 
 function copy_config
@@ -78,6 +78,7 @@ function copy_config
     echo "Copying config to $nginxConfigDir."
     cp -fv ../nginx-config/nginx.conf $nginxConfigDir
     cp -fv ../nginx-config/infChat $nginxConfigDir/sites-available/
+    rm -r /etc/nginx/sites-enabled/default
 }
 
 function edit_config
@@ -106,7 +107,7 @@ function install_nginx
 function restart_nginx
 {
     echo "Restarting Nginx..."
-    systemctl restart nginx
+    service nginx restart
 }
 
 function check_privileges
@@ -130,7 +131,7 @@ while getopts ":hdwopu:" opt; do
         "h" ) echo -e "$banner"; exit 0 ;;
         "d" ) set_dev ;;
         "w" ) copy_html; exit 0 ;;
-        "o" ) check_privileges 
+        "o" ) check_privileges
               copy_config
               edit_config
               restart_nginx
@@ -160,3 +161,4 @@ edit_config
 create_dirs
 copy_html
 restart_nginx
+tail -f /dev/null
