@@ -4,7 +4,7 @@
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>controlsrv</title>
+    <title>I N F E R N A L | Circle 1 | Topic: undefined</title>
     <link rel="stylesheet" type="text/css" href="styles/inf_layout_main.css">
     <!-- JavaScript. -->
     <script type="text/javascript">
@@ -16,9 +16,31 @@
         <h1 id="titleHeader">Infernal Chat</h1>
     </div>
     <div id="bodyContainer">
-    <p>nothing to say today</p>
+    
+        <div id="topMenu">
+            | Instructions | Text-Styles | Login | Circle List |
+        </div>
+        <p>Topic: nothing to say today, so go away.</p>
+            <table id="msgBoard">
+                <tr>
+                    <td class="userName" title="$date">dafty</td>
+                    <td class="userMsg">I am not wise i tell no lies...!</td>
+                </tr>
+            </table>
+            
+            <div id="inputArea">
+                <form id="inputForm" method="post" action="#">
+                    <select id="textStyles" title="Text-Styles">
+                        <option value="plain">Plain</option>
+                        <option value="slantybold">Slantybold</option>
+                        <option value="blinking">Blinking Nuisance</option>
+                        <option value="goldenYellow">Golden Yellow</option>
+                    </select>
+                    <input type="text" id="usrMsgField"></input>
+                    <input type="submit" id="usrMsgSubmit" value="say this"></input>
+                </form>
+            </div>
     </div>
-
 
     <div id="footer">
         <p class="footerText">Created in 2020 by CLS // Carefully crafted using <a href="http://www.vim.org" target="_blank">Vim</a> // Proudly Perl</p>
