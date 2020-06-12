@@ -4,7 +4,7 @@ WORKDIR /InfernalChatFiles
 
 RUN apt-get -y update
 
-RUN apt-get -y install apt-utils lsb-release systemd net-tools
+RUN apt-get -y install apt-utils lsb-release net-tools
 
 COPY . .
 
@@ -18,4 +18,4 @@ RUN chmod +x /build/createEnv.sh
 WORKDIR /build
 ENTRYPOINT ["bash"]
 
-CMD ["createEnv.sh"]
+CMD ["createEnv.sh -D"]

@@ -14,11 +14,13 @@ echo "This script will answer the question: Is your system Golden or Dud? This s
 mode="live"
 doPortCheck="y"
 nginxIsInstalled="idk_yet"
+docker="false"
 
 readonly banner="USAGE: ./$0 [args]\nRun with no flags to perform a full live install. Requires root privileges.
 ARGS:\n-h print this message.\n-w copy WWW and CGI only, no root required. Use this to update a ready-existing installation.
--c Check only; will not modify your system. Will check whether requirements are met, report and exit.
--o copy config only.\n-p Skip port check. Useful if you already have Nginx installed.\n-d perform dev mode install (for local dev env only)."
+-c Check only; will not modify your system. Will check whether requirements are met, report and exit.\n-u <login> Set your username to <login>.
+-o copy config only.\n-p Skip port check. Useful if you already have Nginx installed.\n-d perform dev mode install (for local dev env only).
+-D using this script inside Docker."
 
 function set_dev
 {
@@ -46,7 +48,7 @@ function check_os
     opsys=$(lsb_release -is)
     echo "Detected OS: ${opsys}"
     if [ "$opsys" = "Ubuntu" ] || [ "$opsys" = "Debian" ]; then
-        echo "Using APT and DPKG for Ubuntu."
+        echo "Using APT and DPKG for Debian and sons."
         packager="apt-get -qy install"
         query="dpkg -s"
     elif [ "$opsys" = "CentOS" ]; then
@@ -104,6 +106,7 @@ function install_nginx
     2>&1 $packager $dependencies >/dev/null
 }
 
+# Works on Debian, Ubuntu and derivatives. SystemD or Init.
 function restart_nginx
 {
     echo "Restarting Nginx..."
@@ -118,6 +121,12 @@ function check_privileges
     fi
 }
 
+function docker_wait
+{
+	echo "In docker mode, waiting for SIGTERM."
+	tail -f /dev/null
+}
+
 # Begin main body of script
 
 if [ ! -s "setup.config" ]; then
@@ -126,7 +135,7 @@ if [ ! -s "setup.config" ]; then
 fi
 . setup.config
 
-while getopts ":hdwopu:" opt; do
+while getopts ":hdwopu:cD" opt; do
     case $opt in
         "h" ) echo -e "$banner"; exit 0 ;;
         "d" ) set_dev ;;
@@ -138,14 +147,16 @@ while getopts ":hdwopu:" opt; do
               exit 0 ;;
         "p" ) doPortCheck="n" ;;
         "u" ) userName="$OPTARG" ;;
-        * ) echo -e "Invalid Args.\n$banner"; exit 1 ;;
+	"D" ) docker="true" ;;
+	"c" ) checkOnly="true" ;;
+        * ) echo -e "Invalid Args.\n\n$banner"; exit 1 ;;
     esac
 done
 
 # Now run with configured options
-echo "Beginning Burnsrv $mode Setup..."
+echo "Beginning infChat $mode checks..."
 
-check_privileges
+[ "$checkOnly" = "true" ] || check_privileges
 check_os
 if [ "$doPortCheck" = "y" ]; then
     check_ports
@@ -153,6 +164,10 @@ else
     echo "Skipping port check."
 fi
 check_nginx_install
+
+[ "$checkOnly" = "true" ] && exit 0
+
+echo "Now beginning installation."
 if [ "$nginxIsInstalled" = "no" ]; then
     install_nginx
 fi
@@ -161,4 +176,5 @@ edit_config
 create_dirs
 copy_html
 restart_nginx
-tail -f /dev/null
+
+[ "$docker" = "true" ] && docker_wait
