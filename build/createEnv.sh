@@ -129,11 +129,12 @@ function docker_wait
 
 # Begin main body of script
 
-if [ ! -s "setup.config" ]; then
-    echo "DUD: Setup.config file missing or empty, cannot continue."
+if [ ! -s "setup.local" ]; then
+    echo "DUD: setup.local file missing or empty, cannot continue."
+    echo "Please copy setup.config, name it setup.local and edit it to match your environment."
     exit 1
 fi
-. setup.config
+. setup.local
 
 while getopts ":hdwopu:cD" opt; do
     case $opt in

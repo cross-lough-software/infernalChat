@@ -7,6 +7,14 @@ Builds a server from scratch. Tested on Debian and Ubuntu systems; may also work
 ## Requirements
 Requires the BASH shell, nginx, fcgiwrap, and a number of Perl modules to function fully. Check  the *dependencies* variable inside `setup.config`.
 
+## Important - before using
+
+Copy `setup.config` and rename it `setup.local`.
+
+Edit `setup.local` to match your environment.
+
+**note:** This is done to avoid clashes with version control.
+
 ## Script Features
 
 ### createEnv.sh
