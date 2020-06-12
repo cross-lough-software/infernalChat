@@ -63,16 +63,18 @@ function check_os
 
 function create_dirs
 {
-    echo "Creating directory for HTML."
+    echo "Creating directories for HTML and Perl."
     mkdir -p $htmlRoot
+    mkdir -p ${htmlRoot}/inf
     echo "Setting ownership for $userName on $rootDir."
     chown -R $userName $htmlRoot
 }
 
-function copy_html
+function copy_src
 {
-    echo "Copying HTML into $htmlRoot."
+    echo "Copying source into $htmlRoot."
     cp -rfv ../www-static/* $htmlRoot
+    cp -rfv ../infChat/* $htmlRoot/inf/
 }
 
 function copy_config
@@ -140,7 +142,7 @@ while getopts ":hdwopu:cD" opt; do
     case $opt in
         "h" ) echo -e "$banner"; exit 0 ;;
         "d" ) set_dev ;;
-        "w" ) copy_html; exit 0 ;;
+        "w" ) copy_src; exit 0 ;;
         "o" ) check_privileges
               copy_config
               edit_config
@@ -175,7 +177,7 @@ fi
 copy_config
 edit_config
 create_dirs
-copy_html
+copy_src
 restart_nginx
 
 [ "$docker" = "true" ] && docker_wait

@@ -23,7 +23,7 @@ server {
 
 
     # Enable FastCGIWrapper
-    location /cgi-bin/ {
+    location /inf/ {
         allow all;
         gzip off;
         # Set the root to /usr/lib (inside this location this means that we are

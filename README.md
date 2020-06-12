@@ -5,7 +5,21 @@ A straightforward chat page written in Perl. Free of any extra useless baggage a
 
 Main script name: `infChat.pl`
 
-# Docker
+A convenient build script is included, but its help is optional. We know some people don't like being told how to build their systems. That is fine. This is just Perl and HTML, so should run anywhere provided all dependencies are met.
+
+# Components
+
+## infChat
+Main scripts intended to be publically-run. Basically stick them under your root, CGI bin or wherever is comfortable.
+
+## infCore
+"Backend" scripts. I'll always snicker a little at the term "backend". Does it mean the same thing elsewhere in the world? Is it appropriate to say as a developer you enjoy working on the backend?
+
+Anyway, the "backend" scripts power the DB and have some CLI dev/test helpers. It is wise to keep them well apart from the public view. Just like all backends should be.
+
+Provided the configuration files let infChat know where to look, everything should work as well as the devil.
+
+# Docker Usage Notes.
 This will explain how to build and run the docker container and copy files
 that have been changed into the docker container.
 
