@@ -77,3 +77,11 @@ To see docker processes use:
 To stop a container use:
 
 `docker stop <continer name>`
+
+# Why the name?
+
+I originally thought "inferal" was how "infernal" is spelt. The hope was that "inferal" rhymed with "Perl", so "Inferal Perl Chat" was to be the name.
+
+While I was wrong with the spelling, I thought we'd use the corrected name because I insist on correct spelling.
+
+Besides, most chat on the internet reads as if it was spaned in the bowels of hell, so Infernal Chat is appropriate.
