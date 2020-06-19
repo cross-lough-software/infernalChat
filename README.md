@@ -7,6 +7,14 @@ Main script name: `infChat.pl`
 
 A convenient build script is included, but its help is optional. We know some people don't like being told how to build their systems. That is fine. This is just Perl and HTML, so should run anywhere provided all dependencies are met.
 
+# Required Perl Modules
+
+* `Config::Tiny`: used to read in INI files. For now, use CPAN to install it. We may include it in "contrib" in the future, or move to an in-house config.
+* `DBI`: Used to speak with the database.
+* `DBD::SQLite`: Used to drive SQLite.
+
+These will be installed from your APT repo using the prepareEnv scripts, if you use them.
+
 # Components
 
 ## infChat
