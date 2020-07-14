@@ -11,9 +11,13 @@ A convenient build script is included, but its help is optional. We know some pe
 
 * `Config::Tiny`: used to read in INI files. For now, use CPAN to install it. We may include it in "contrib" in the future, or move to an in-house config.
 * `DBI`: Used to speak with the database.
-* `DBD::SQLite`: Used to drive SQLite.
+* `DBD::SQLite`: Used to drive SQLite. In Void Linux, the package name is: perl-DBD-SQLite. In the Debian family, it is: libdbd-sqlite3-perl.
 
 These will be installed from your APT repo using the prepareEnv scripts, if you use them.
+
+# Required System Libraries
+
+* `sqlite3`: Needs installed on the host OS as an available library. In the future this will come distributed with infChat.
 
 # Components
 
