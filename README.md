@@ -25,9 +25,7 @@ These will be installed from your APT repo using the prepareEnv scripts, if you 
 Main scripts intended to be publically-run. Basically stick them under your root, CGI bin or wherever is comfortable.
 
 ## infCore
-"Backend" scripts. I'll always snicker a little at the term "backend". Does it mean the same thing elsewhere in the world? Is it appropriate to say as a developer you enjoy working on the backend?
-
-Anyway, the "backend" scripts power the DB and have some CLI dev/test helpers. It is wise to keep them well apart from the public view. Just like all backends should be.
+"Backend" scripts. These scripts power the DB and have some CLI dev/test helpers. It is wise to keep them well apart from the public view, as everyone does with his backend.
 
 Provided the configuration files let infChat know where to look, everything should work as well as the devil.
 
